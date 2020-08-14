@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from credentials import Ui_Form
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -37,9 +37,11 @@ class Ui_MainWindow(object):
         self.attachmentFolder.setEnabled(True)
         self.attachmentFolder.setGeometry(QtCore.QRect(290, 370, 411, 33))
         self.attachmentFolder.setObjectName("attachmentFolder")
+        
         self.submit = QtWidgets.QPushButton(self.centralwidget)
         self.submit.setGeometry(QtCore.QRect(300, 460, 191, 41))
         self.submit.setObjectName("submit")
+        
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 28))
@@ -52,6 +54,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.submit.clicked.connect(self.nextWindow)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -61,6 +65,11 @@ class Ui_MainWindow(object):
         self.attachmentFolder.setText(_translate("MainWindow", "Select Folder"))
         self.submit.setText(_translate("MainWindow", "Submit"))
 
+    def nextWindow(self):
+        self.Form = QtWidgets.QWidget()
+        self.ui = Ui_Form()
+        self.ui.setupUi(self.Form)
+        self.Form.show()
 
 if __name__ == "__main__":
     import sys
