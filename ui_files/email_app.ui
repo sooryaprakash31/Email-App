@@ -21,7 +21,7 @@
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>60</y>
+      <y>40</y>
       <width>491</width>
       <height>41</height>
      </rect>
@@ -31,7 +31,7 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>60</y>
+      <y>40</y>
       <width>89</width>
       <height>23</height>
      </rect>
@@ -44,7 +44,7 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>130</y>
+      <y>110</y>
       <width>89</width>
       <height>23</height>
      </rect>
@@ -57,17 +57,17 @@
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>130</y>
+      <y>110</y>
       <width>491</width>
-      <height>201</height>
+      <height>181</height>
      </rect>
     </property>
    </widget>
    <widget class="QCheckBox" name="attachment">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>370</y>
+      <x>70</x>
+      <y>330</y>
       <width>141</width>
       <height>29</height>
      </rect>
@@ -76,14 +76,14 @@
      <string> Attachment</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="attachmentFolder">
+   <widget class="QPushButton" name="attachmentSelect">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>370</y>
+      <y>330</y>
       <width>411</width>
       <height>33</height>
      </rect>
@@ -95,14 +95,40 @@
    <widget class="QPushButton" name="submit">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>460</y>
+      <x>290</x>
+      <y>480</y>
       <width>191</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
      <string>Submit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="csvSelect">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>390</y>
+      <width>411</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add File</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="recipientsList">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>390</y>
+      <width>141</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Recipients List</string>
     </property>
    </widget>
   </widget>
