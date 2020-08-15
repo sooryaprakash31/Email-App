@@ -18,11 +18,11 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(800, 599)
+        MainWindow.resize(850, 700)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.subjectText = QtWidgets.QTextEdit(self.centralwidget)
-        self.subjectText.setGeometry(QtCore.QRect(210, 40, 491, 41))
+        self.subjectText.setGeometry(QtCore.QRect(260, 40, 491, 41))
         self.subjectText.setObjectName("subjectText")
         self.subject = QtWidgets.QLabel(self.centralwidget)
         self.subject.setGeometry(QtCore.QRect(70, 40, 89, 23))
@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
         self.body.setGeometry(QtCore.QRect(70, 110, 89, 23))
         self.body.setObjectName("body")
         self.bodyText = QtWidgets.QTextEdit(self.centralwidget)
-        self.bodyText.setGeometry(QtCore.QRect(210, 110, 491, 181))
+        self.bodyText.setGeometry(QtCore.QRect(260, 110, 491, 181))
         self.bodyText.setObjectName("bodyText")
         self.attachment = QtWidgets.QCheckBox(self.centralwidget)
         self.attachment.setGeometry(QtCore.QRect(70, 330, 141, 29))
@@ -40,25 +40,48 @@ class Ui_MainWindow(object):
 
         self.attachmentSelect = QtWidgets.QPushButton(self.centralwidget)
         self.attachmentSelect.setEnabled(True)
-        self.attachmentSelect.setGeometry(QtCore.QRect(290, 330, 411, 33))
+        self.attachmentSelect.setGeometry(QtCore.QRect(310, 330, 411, 33))
         self.attachmentSelect.setObjectName("attachmentSelect")
         self.attachmentSelect.setEnabled(False)
+        self.attachmentSelect.clicked.connect(self.selectAttachmentFolder)
+        
         self.submit = QtWidgets.QPushButton(self.centralwidget)
-        self.submit.setGeometry(QtCore.QRect(290, 480, 191, 41))
+        self.submit.setGeometry(QtCore.QRect(320, 570, 191, 41))
         self.submit.setObjectName("submit")
         self.submit.clicked.connect(self.nextWindow)
 
         self.csvSelect = QtWidgets.QPushButton(self.centralwidget)
-        self.csvSelect.setGeometry(QtCore.QRect(290, 390, 411, 33))
+        self.csvSelect.setGeometry(QtCore.QRect(310, 440, 411, 33))
         self.csvSelect.setObjectName("csvSelect")
         self.csvSelect.clicked.connect(self.getcsv)
 
         self.recipientsList = QtWidgets.QLabel(self.centralwidget)
-        self.recipientsList.setGeometry(QtCore.QRect(70, 390, 141, 23))
+        self.recipientsList.setGeometry(QtCore.QRect(70, 450, 141, 23))
         self.recipientsList.setObjectName("recipientsList")
+
+        self.recipientsList = QtWidgets.QLabel(self.centralwidget)
+        self.recipientsList.setGeometry(QtCore.QRect(70, 450, 141, 23))
+        self.recipientsList.setObjectName("recipientsList")
+
+        self.attachPathLabel = QtWidgets.QLabel(self.centralwidget)
+        self.attachPathLabel.setGeometry(QtCore.QRect(320, 380, 391, 23))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        font.setItalic(True)
+        self.attachPathLabel.setFont(font)
+        self.attachPathLabel.setObjectName("attachPathLabel")
+
+        self.sheetPathLabel = QtWidgets.QLabel(self.centralwidget)
+        self.sheetPathLabel.setGeometry(QtCore.QRect(320, 490, 401, 23))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        font.setItalic(True)
+        self.sheetPathLabel.setFont(font)
+        self.sheetPathLabel.setObjectName("sheetPathLabel")
+        
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 28))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 850, 28))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -78,57 +101,81 @@ class Ui_MainWindow(object):
         self.submit.setText(_translate("MainWindow", "Submit"))
         self.csvSelect.setText(_translate("MainWindow", "Add File"))
         self.recipientsList.setText(_translate("MainWindow", "Recipients List"))
+        self.attachPathLabel.setText(_translate("MainWindow", "- not selected -"))
+        self.sheetPathLabel.setText(_translate("MainWindow", "- not added -"))
 
     def isAttachment(self):
         if(self.attachment.isChecked()==True):
             self.attachmentSelect.setEnabled(True)        
         else:
             self.attachmentSelect.setEnabled(False)
-
-    def validateData(self):
-        if self.subjectText.toPlainText().strip()=="" or self.bodyText.toPlainText().strip() == "":
-            self.showPopup()
-        
     
-    def showPopup(self):
-        pop = QtGui.QMessageBox()
-        pop.setWindowTitle("Warning")
-        pop.setText("Enter Valid Data")
-        pop.setIcon(QtGui.QMessageBox.Warning)
-        x = pop.exec_()
+    def selectAttachmentFolder(self):
+        self.dialog = Main()
+        self.folderPath = self.dialog.browseFolder()
+        if self.folderPath != "":
+            self.attachPathLabel.setText(self.folderPath)
+            self.attachPathLabel.adjustSize()
 
     def getcsv(self):
         self.dialog = Main()
-        self.dialog.browse()
+        self.filePath=self.dialog.browseFile()
+        if self.filePath != "":
+            self.sheetPathLabel.setText(self.filePath)
+            self.sheetPathLabel.adjustSize()
        
-        
-
     def nextWindow(self):
+
+        subject = self.subjectText.toPlainText()
+        body = self.bodyText.toPlainText()
+        attachmentPath = self.folderPath
+        recipientsListPath = self.filePath
         self.validateData()
-        subjectText = self.subjectText.toPlainText()
-        bodyText = self.bodyText.toPlainText()
 
         self.Form = QtWidgets.QWidget()
         self.ui = Ui_Form()
         self.ui.setupUi(self.Form)
         self.Form.show()
 
+    def validateData(self):
+        if self.subjectText.strip()=="" or self.bodyText.strip() == "":
+            self.showPopup("Fields must not be empty")
+        if self.folderPath == "" or self.filePath == "":
+            self.showPopup("Invalid Path")
+
+    def showPopup(self, message):
+        pop = QtWidgets.QMessageBox()
+        pop.setWindowTitle("Error")
+        pop.setText(message)
+        #pop.setInformativeText(message)
+        pop.setIcon(QtWidgets.QMessageBox.Warning)
+        x = pop.exec_()
+
 class Main(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         self.setupUi(self)
 
-    def browse(self):
+    def browseFolder(self):
+        dialog = QtWidgets.QFileDialog(self)
+        dialog.setWindowTitle('Open Recipients list file')
+        folderPathstr = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory"))
+        print("folder name",folderPathstr)
+        return folderPathstr
+
+    def browseFile(self):
         dialog = QtWidgets.QFileDialog(self)
         dialog.setWindowTitle('Open Recipients list file')
         dialog.setNameFilter('(*.csv)')
         dialog.setFileMode(QtWidgets.QFileDialog.ExistingFile)
-        filename = None
+        filePath = None
         if dialog.exec_() == QtWidgets.QDialog.Accepted:
-            filename = dialog.selectedFiles()
-        if filename:
-            self.fname = str(filename[0])
-            print(self.fname)
+            filePath = dialog.selectedFiles()
+        if filePath:
+            self.filePathstr = str(filePath[0])
+            print(self.filePathstr)
+            return self.filePathstr
+            
         
         
 if __name__ == "__main__":
