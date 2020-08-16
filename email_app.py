@@ -13,8 +13,10 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 from credentials import Ui_Form
 import sys
 import os
+import time
 
 class Ui_MainWindow(object):
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
@@ -33,6 +35,7 @@ class Ui_MainWindow(object):
         self.bodyText = QtWidgets.QTextEdit(self.centralwidget)
         self.bodyText.setGeometry(QtCore.QRect(260, 110, 491, 181))
         self.bodyText.setObjectName("bodyText")
+        
         self.attachment = QtWidgets.QCheckBox(self.centralwidget)
         self.attachment.setGeometry(QtCore.QRect(70, 330, 141, 29))
         self.attachment.setObjectName("attachment")
@@ -125,23 +128,35 @@ class Ui_MainWindow(object):
             self.sheetPathLabel.adjustSize()
        
     def nextWindow(self):
-
-        subject = self.subjectText.toPlainText()
-        body = self.bodyText.toPlainText()
-        attachmentPath = self.folderPath
-        recipientsListPath = self.filePath
-        self.validateData()
-
-        self.Form = QtWidgets.QWidget()
-        self.ui = Ui_Form()
-        self.ui.setupUi(self.Form)
-        self.Form.show()
+        if self.validateData() == 1:
+            mailData = {
+                "subject":self.subjectText.toPlainText(),
+                "body":self.bodyText.toPlainText(),
+                "recipients": self.sheetPathLabel.text()
+            }
+            if self.attachment.isChecked()==True:
+                mailData["attachments"] = self.folderPath    
+            else:
+                mailData["attachment"]=""
+            print(mailData)
+            self.Form = QtWidgets.QWidget()
+            self.ui = Ui_Form()
+            self.ui.setupUi(self.Form)
+            self.Form.show()
+        
 
     def validateData(self):
-        if self.subjectText.strip()=="" or self.bodyText.strip() == "":
+        if self.subjectText.toPlainText().strip()=="" or self.bodyText.toPlainText().strip() == "":
             self.showPopup("Fields must not be empty")
-        if self.folderPath == "" or self.filePath == "":
+            return 0
+        print(self.sheetPathLabel)
+        if self.sheetPathLabel.text() == "- not added -":
             self.showPopup("Invalid Path")
+            return 0
+        if self.attachment.isChecked()==True and self.attachPathLabel.text() == "- not selected -": 
+            self.showPopup("Invalid Path")
+            return 0
+        return 1
 
     def showPopup(self, message):
         pop = QtWidgets.QMessageBox()

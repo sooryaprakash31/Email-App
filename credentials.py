@@ -27,10 +27,11 @@ class Ui_Form(object):
         self.emailAddress = QtWidgets.QLabel(Form)
         self.emailAddress.setGeometry(QtCore.QRect(40, 70, 131, 23))
         self.emailAddress.setObjectName("emailAddress")
+        
         self.sendMails = QtWidgets.QPushButton(Form)
         self.sendMails.setGeometry(QtCore.QRect(400, 220, 141, 51))
         self.sendMails.setObjectName("sendMails")
-
+        self.sendMails.clicked.connect(self.sendMailsMethod)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -41,6 +42,7 @@ class Ui_Form(object):
         self.emailAddress.setText(_translate("Form", "Email address"))
         self.sendMails.setText(_translate("Form", "Send Mails"))
 
+    
 
 if __name__ == "__main__":
     import sys
