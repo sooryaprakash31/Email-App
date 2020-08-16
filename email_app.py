@@ -16,7 +16,7 @@ import os
 import time
 
 class Ui_MainWindow(object):
-
+    mailData = {}
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
@@ -128,23 +128,12 @@ class Ui_MainWindow(object):
             self.sheetPathLabel.adjustSize()
        
     def nextWindow(self):
-        if self.validateData() == 1:
-            mailData = {
-                "subject":self.subjectText.toPlainText(),
-                "body":self.bodyText.toPlainText(),
-                "recipients": self.sheetPathLabel.text()
-            }
-            if self.attachment.isChecked()==True:
-                mailData["attachments"] = self.folderPath    
-            else:
-                mailData["attachment"]=""
-            print(mailData)
+        if self.validateData() ==1:
             self.Form = QtWidgets.QWidget()
             self.ui = Ui_Form()
             self.ui.setupUi(self.Form)
             self.Form.show()
         
-
     def validateData(self):
         if self.subjectText.toPlainText().strip()=="" or self.bodyText.toPlainText().strip() == "":
             self.showPopup("Fields must not be empty")
@@ -156,7 +145,20 @@ class Ui_MainWindow(object):
         if self.attachment.isChecked()==True and self.attachPathLabel.text() == "- not selected -": 
             self.showPopup("Invalid Path")
             return 0
+        mailData = {
+                "subject":self.subjectText.toPlainText(),
+                "body":self.bodyText.toPlainText(),
+                "recipients": self.sheetPathLabel.text()
+            }
+        if self.attachment.isChecked()==True:
+            mailData["attachments"] = self.folderPath    
+        else:
+            mailData["attachment"]=""
+        print(mailData)
         return 1
+
+    def getMailData(self):
+        return self.mailData
 
     def showPopup(self, message):
         pop = QtWidgets.QMessageBox()
