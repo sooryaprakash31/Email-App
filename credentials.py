@@ -9,9 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
 
 class Ui_Form(object):
-    userData = {}
+    def __init__(self,mailData):
+        self.data = mailData
+
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(600, 350)
@@ -48,17 +51,14 @@ class Ui_Form(object):
 
     def sendMailsMethod(self):
         if self.validate() == 1:
-            pass
-
+            print(self.data)
+        
     def validate(self):
         if self.emailText.toPlainText().strip()=="" or self.passText.toPlainText().strip()=="":
             self.showPopup("Fields must not be empty")
             return 0
-        userData = {
-            "email": self.emailText.toPlainText().strip(),
-            "pass": self.passText.toPlainText().strip()
-        }
-        print(userData)
+        self.data["email"] = self.emailText.toPlainText().strip()
+        self.data["pass"] = self.passText.toPlainText().strip()
         return 1
 
     def showPopup(self, message):
@@ -67,15 +67,15 @@ class Ui_Form(object):
         pop.setText(message)
         pop.setIcon(QtWidgets.QMessageBox.Warning)
         x = pop.exec_()
-        
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
+
+# if __name__ == "__main__":
+    
+#     app = QtWidgets.QApplication(sys.argv)
+#     Form = QtWidgets.QWidget()
+#     ui = Ui_Form()
+#     ui.setupUi(Form)
+#     Form.show()
+#     sys.exit(app.exec_())
 
  
 

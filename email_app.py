@@ -10,10 +10,9 @@
 # from PyQt5.QtWidgets import QMessageBox
 # from PyQt5 import QtCore, QtWidgets
 from PyQt5 import QtWidgets, QtGui, QtCore
-from credentials import Ui_Form
 import sys
 import os
-import time
+from credentials import Ui_Form
 
 class Ui_MainWindow(object):
     mailData = {}
@@ -130,31 +129,31 @@ class Ui_MainWindow(object):
     def nextWindow(self):
         if self.validateData() ==1:
             self.Form = QtWidgets.QWidget()
-            self.ui = Ui_Form()
+            self.ui = Ui_Form(self.mailData)
             self.ui.setupUi(self.Form)
             self.Form.show()
+
         
     def validateData(self):
         if self.subjectText.toPlainText().strip()=="" or self.bodyText.toPlainText().strip() == "":
             self.showPopup("Fields must not be empty")
             return 0
-        print(self.sheetPathLabel)
         if self.sheetPathLabel.text() == "- not added -":
             self.showPopup("Invalid Path")
             return 0
         if self.attachment.isChecked()==True and self.attachPathLabel.text() == "- not selected -": 
             self.showPopup("Invalid Path")
             return 0
-        mailData = {
+        self.mailData = {
                 "subject":self.subjectText.toPlainText(),
                 "body":self.bodyText.toPlainText(),
                 "recipients": self.sheetPathLabel.text()
             }
         if self.attachment.isChecked()==True:
-            mailData["attachments"] = self.folderPath    
+            self.mailData["attachments"] = self.folderPath    
         else:
-            mailData["attachment"]=""
-        print(mailData)
+            self.mailData["attachment"]=""
+        #print(mailData)
         return 1
 
     def getMailData(self):
@@ -167,6 +166,7 @@ class Ui_MainWindow(object):
         #pop.setInformativeText(message)
         pop.setIcon(QtWidgets.QMessageBox.Warning)
         x = pop.exec_()
+
 
 class Main(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -193,7 +193,7 @@ class Main(QtWidgets.QMainWindow, Ui_MainWindow):
             print(self.filePathstr)
             return self.filePathstr
             
-        
+
         
 if __name__ == "__main__":
     import sys
