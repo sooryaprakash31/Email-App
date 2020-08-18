@@ -10,6 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+from mail_manager import MailManager
 
 class Ui_Form(object):
     def __init__(self,mailData):
@@ -51,7 +52,10 @@ class Ui_Form(object):
 
     def sendMailsMethod(self):
         if self.validate() == 1:
-            print(self.data)
+            mailManager = MailManager(self.data)
+            mailManager.sendMails()
+            
+
         
     def validate(self):
         if self.emailText.toPlainText().strip()=="" or self.passText.toPlainText().strip()=="":
