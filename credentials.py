@@ -56,7 +56,13 @@ class Ui_Form(object):
         if self.validate() == 1:
             mailManager = MailManager(self.data)
             mailManager.sendMails()
-
+            pop = QtWidgets.QMessageBox()
+            pop.setWindowTitle("Successfully Completed")
+            pop.setText("Done!")
+            pop.setIcon(QtWidgets.QMessageBox.Information)
+            pop.buttonClicked.connect(self.closeProgram)
+            x = pop.exec_()
+    
     def validate(self):
         if self.emailText.toPlainText().strip()=="" or self.passText.text().strip()=="":
             self.showPopup("Fields must not be empty")
@@ -72,6 +78,8 @@ class Ui_Form(object):
         pop.setIcon(QtWidgets.QMessageBox.Warning)
         x = pop.exec_()
 
+    def closeProgram(self):
+        sys.exit()
 # if __name__ == "__main__":
     
 #     app = QtWidgets.QApplication(sys.argv)

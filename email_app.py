@@ -132,7 +132,7 @@ class Ui_MainWindow(object):
             self.ui = Ui_Form(self.mailData)
             self.ui.setupUi(self.Form)
             self.Form.show()
-
+            
         
     def validateData(self):
         if self.subjectText.toPlainText().strip()=="" or self.bodyText.toPlainText().strip() == "":
