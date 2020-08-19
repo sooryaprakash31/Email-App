@@ -47,7 +47,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Credentials"))
         self.password.setText(_translate("Form", "Password"))
         self.emailAddress.setText(_translate("Form", "Email address"))
         self.sendMails.setText(_translate("Form", "Send Mails"))
@@ -57,8 +57,8 @@ class Ui_Form(object):
             mailManager = MailManager(self.data)
             mailManager.sendMails()
             pop = QtWidgets.QMessageBox()
-            pop.setWindowTitle("Successfully Completed")
-            pop.setText("Done!")
+            pop.setWindowTitle("Progress")
+            pop.setText("Successfully Completed!")
             pop.setIcon(QtWidgets.QMessageBox.Information)
             pop.buttonClicked.connect(self.closeProgram)
             x = pop.exec_()
