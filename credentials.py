@@ -10,7 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-from mail_manager import MailManager
+from utils.mail_manager import MailManager
+
 
 class Ui_Form(object):
     def __init__(self,mailData):
@@ -27,8 +28,9 @@ class Ui_Form(object):
         self.password = QtWidgets.QLabel(Form)
         self.password.setGeometry(QtCore.QRect(40, 140, 101, 23))
         self.password.setObjectName("password")
-        
-        self.passText = QtWidgets.QTextEdit(Form)
+
+        self.passText = QtWidgets.QLineEdit(Form)
+        self.passText.setEchoMode(QtWidgets.QLineEdit.Password)
         self.passText.setGeometry(QtCore.QRect(200, 140, 341, 41))
         self.passText.setObjectName("passText")
         
@@ -54,15 +56,13 @@ class Ui_Form(object):
         if self.validate() == 1:
             mailManager = MailManager(self.data)
             mailManager.sendMails()
-            
 
-        
     def validate(self):
-        if self.emailText.toPlainText().strip()=="" or self.passText.toPlainText().strip()=="":
+        if self.emailText.toPlainText().strip()=="" or self.passText.text().strip()=="":
             self.showPopup("Fields must not be empty")
             return 0
         self.data["email"] = self.emailText.toPlainText().strip()
-        self.data["pass"] = self.passText.toPlainText().strip()
+        self.data["pass"] = self.passText.text().strip()
         return 1
 
     def showPopup(self, message):

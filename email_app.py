@@ -150,7 +150,7 @@ class Ui_MainWindow(object):
                 "recipients": self.sheetPathLabel.text()
             }
         if self.attachment.isChecked()==True:
-            self.mailData["attachments"] = self.folderPath    
+            self.mailData["attachment"] = self.folderPath    
         else:
             self.mailData["attachment"]=""
         #print(mailData)
@@ -177,7 +177,6 @@ class Main(QtWidgets.QMainWindow, Ui_MainWindow):
         dialog = QtWidgets.QFileDialog(self)
         dialog.setWindowTitle('Open Recipients list file')
         folderPathstr = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory"))
-        print("folder name",folderPathstr)
         return folderPathstr
 
     def browseFile(self):
@@ -190,7 +189,6 @@ class Main(QtWidgets.QMainWindow, Ui_MainWindow):
             filePath = dialog.selectedFiles()
         if filePath:
             self.filePathstr = str(filePath[0])
-            print(self.filePathstr)
             return self.filePathstr
             
 
