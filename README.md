@@ -6,7 +6,7 @@
 ### Setup
 - `name` and `email` are required columns in the `.csv` file
 - Attachment file name and `name` in the .csv file must be same
-- The Supported file format for attachments in `.pdf`
+- The Supported file format for attachments is `.pdf`
 - Less secure app access in from email account must be on during the execution 
 
 ### Execution
