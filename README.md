@@ -16,5 +16,4 @@
 4. Click on send mails.
 5. After execution, a message box will be displayed.
 
-<br>
 Download the `.exe` application [here]()
