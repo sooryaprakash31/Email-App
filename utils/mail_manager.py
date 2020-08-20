@@ -38,7 +38,7 @@ class MailManager():
                     #creating the mail draft
                     message.attach(MIMEText(self.finalData["body"],"plain"))
                     if folderName!="":
-                        attachmentName = toName.lower()+".pdf"                        
+                        attachmentName = toName+".pdf"                        
                         filePath = folderName+"/"+attachmentName
                         filePath = os.path.join(os.path.dirname(__file__),filePath)
                         with open(filePath,"rb") as attachment:
