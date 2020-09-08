@@ -12,6 +12,7 @@ port = 465
 class MailManager():
     def __init__(self,finalData):   
         self.finalData = finalData
+        print(self.finalData)
 
     def sendMails(self):
         fileName = self.getPath(self.finalData["recipients"])
@@ -32,7 +33,7 @@ class MailManager():
                     email_con.login(self.finalData["email"],self.finalData["pass"]) 
                     message=MIMEMultipart()
                     message["Subject"]=self.finalData["subject"]
-                    message["From"]=self.finalData["email"]
+                    message["From"]="Your UserName"
                     message["To"]=toEmail
 
                     #creating the mail draft
