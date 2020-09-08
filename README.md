@@ -3,6 +3,7 @@
 ### Requirements
 - [python3](https://www.python.org/downloads/)
 - Clone of this repository
+- `pip install requirements.txt`
 ### Setup
 - `name` and `email` are required columns in the `.csv` file
 - Attachment file name and `name` in the .csv file must be same
