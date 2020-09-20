@@ -18,4 +18,4 @@
 5. After execution, a message box will be displayed.
 
 ## License
-- [MIT License](/License.md)
+- [MIT License](/LICENSE.md)
