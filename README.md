@@ -17,4 +17,5 @@
 4. Click on send mails.
 5. After execution, a message box will be displayed.
 
-Download the `.exe` application [here](https://drive.google.com/file/d/1VU1Np56lL6i6guTq5vHQREp2xFoJvJYZ/view?usp=sharing)
+## License
+- [MIT License](/License.md)
